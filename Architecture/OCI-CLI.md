@@ -1,8 +1,4 @@
-Copyright (c) 2020-2021 Oracle and/or its affiliates.  All rights reserved.
-
-Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
-
-
+<!-- Copyright (c) 2020-2021, Oracle and/or its affiliates -->
 
 ## Setting up OCI Command line interface (CLI) for Researchers
 
@@ -22,33 +18,57 @@ This document outlines the basic and the necessary steps to set up the OCI comma
 2.	Follow the link to perform a yum install of OCI CLI as shown below based on the image you selected
 https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm 
 3.	After successful install, go ahead and generate the API signing key as shown below from the opc account or whichever account you would be working
-<pre><code>mkdir ~/.oci
+```sh
+mkdir ~/.oci
 openssl genrsa -out ~/.oci/oci_api_key.pem 2048  # passphrase (recommended) 
 chmod go-rwx ~/.oci/oci_api_key.pem               # Change permission on the key
 openssl rsa -pubout -in ~/.oci/oci_api_key.pem -out ~/.oci/oci_api_key_public.pem             # Create a public key
 cat ~/.oci/oci_api_key_public.pem     # cat the public key and copy it to clipboard 
-</code></pre>
+```
 
 ![](images/OCICLI1.png)
 
 4.	Get the key fingerprint 
-<pre><code>openssl rsa -pubout -outform DER -in ~/.oci/oci_api_key.pem | openssl md5 -c</code></pre>
+
+```
+openssl rsa -pubout -outform DER -in ~/.oci/oci_api_key.pem | openssl md5 -c
+```
+
 5.	Get the Tenancy OCID and User’s OCID (following the link) and upload the public key
 https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm 
+
 6.	Create the python virtual environment based on the python environment
-<pre><code>python3.6 -m venv oracle-cli
+
+```
+python3.6 -m venv oracle-cli
 source oracle-cli/bin/activate
-pip install --upgrade pip</code></pre>
+pip install --upgrade pip
+```
+
 7.	Download OCI CLI from github
 Check for latest release under 'Assets' in https://github.com/oracle/oci-cli/releases/latest - for example:
-<pre><code>wget https://github.com/oracle/oci-cli/releases/download/... </code></pre>
+
+```
+wget https://github.com/oracle/oci-cli/releases/download/...
+```
+
 8.	Install OCI CLI 
 (Refer - https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/climanualinst.htm)
-<pre><code>pip install oci-cli</code></pre>
+
+```
+pip install oci-cli
+```
+
 9.	Setup OCI CLI Resource files 
-<pre><code>oci setup oci-cli-rc --file ~/.oci/oci-cli-rc</code></pre>
+
+```
+oci setup oci-cli-rc --file ~/.oci/oci-cli-rc
+```
+
 10.	Set up the OCI CLI config file in vi ~/.oci/config and populate with the following 
-<pre><code>[DEFAULT]
+
+```
+[DEFAULT]
 user=ocid1.user.oc1..<unique_ID>
 fingerprint=<your_fingerprint>
 key_file=~/.oci/oci_api_key.pem
@@ -59,13 +79,24 @@ region=us-ashburn-1
 user=ocid1.user.oc1..<unique_ID>
 fingerprint=<your_fingerprint>
 key_file=keys/admin_key.pem
-pass_phrase=<your_passphrase></code></pre> 
+pass_phrase=<your_passphrase>
+```
+
 11.	Set up permissions for the OCI CLI config file 
-<pre><code>oci setup repair-file-permissions --file /home/opc/.oci/config</code></pre>
+
+```
+oci setup repair-file-permissions --file /home/opc/.oci/config
+```
+
 12.	Test OCI CLI 
-<pre><code>oci os ns get</code></pre>
+
+```
+oci os ns get
+```
+
 13.	Refer to CLI environment variables setup 
 https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/clienvironmentvariables.htm#CLI_Environment_Variables
+
 14.	For OCI CLI command reference 
 https://docs.cloud.oracle.com/en-us/iaas/tools/oci-cli/2.14.1/oci_cli_docs/ 
 

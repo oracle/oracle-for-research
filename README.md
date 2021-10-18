@@ -1,54 +1,28 @@
 # Oracle for Research
 
-<!-- Describe your project's features, functionality and target audience -->
-
 Repository of technology how-to’s and instructional content for Researchers
-
-## Installation
-
-<!-- Provide detailed step-by-step installation instructions -->
 
 ## Documentation
 
-<!-- Developer-oriented documentation can be published on GitHub, but all product
-     documentation must be published on <https://docs.oracle.com>. -->
-
-### [Quick Oracle Cloud links for researchers] (./Important-Links.md)
-
-### [Getting Started] (./Getting-Started)
-
-## Examples
-
-<!-- Describe any included examples or provide a link to a demo/tutorial -->
+* [Quick Oracle Cloud links for researchers](./Important-Links.md)
+* [Getting Started](./Getting-Started)
+* [Architecture and Automation](./Architecture)
+* [Performance and Benchmarks](./Performance)
+* [Resources](./Resources)
 
 ## Help
 
-<!-- Inform users on where to get help or how to receive official support from Oracle
-     (if applicable). -->
+For information on the Oracle for Research program, or questions on the documentation in this repository:
+contact oracleforresearch_ww@oracle.com
 
 ## Contributing
 
-<!-- If your project has specific contribution requirements, update the
-    CONTRIBUTING.md file to ensure those requirements are clearly explained. -->
-
-This project welcomes contributions from the community. Before submitting a pull
-request, please [review our contribution guide](./CONTRIBUTING.md).
-
-## Security
-
-Please consult the [security guide](./SECURITY.md) for our responsible security
-vulnerability disclosure process.
+This project is not accepting community contributions.
+For questions or feedback on the information in this repository, please contact us.
 
 ## License
 
-<!-- The correct copyright notice format for both documentation and software
-    is "Copyright (c) [year,] year Oracle and/or its affiliates."
-    You must include the year the content was first released (on any platform) and
-    the most recent year in which it was revised. -->
-
-Copyright (c) 2021 Oracle and/or its affiliates.
-
-<!-- Replace this statement if your project is not licensed under the UPL -->
+Copyright (c) 2020-2021 Oracle and/or its affiliates.
 
 Released under the Universal Permissive License v1.0 as shown at
-<https://oss.oracle.com/licenses/upl/>.
+<https://oss.oracle.com/licenses/upl/>

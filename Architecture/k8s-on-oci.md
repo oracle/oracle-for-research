@@ -1,10 +1,6 @@
-Copyright (c) 2020-2021 Oracle and/or its affiliates.  All rights reserved.
+<!-- Copyright (c) 2020-2021, Oracle and/or its affiliates -->
 
-Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
-
-
-
-## Setting up kubernetes IaaS on Oracle cloud 
+## Setting up Kubernetes IaaS on Oracle Cloud 
 
 By Rajib Ghosh, Senior Solutions Architect, Oracle for Research
 
@@ -41,78 +37,120 @@ Kubernetes implementation on OCI Compute instance implements the following -
 
 #### Enable UEK5 and perform yum update 
 This can take some time - about 15~20 minutes
-<pre><code>sudo yum-config-manager --enable ol7_addons
+
+```
+sudo yum-config-manager --enable ol7_addons
 sudo yum-config-manager --disable ol7_UEKR4
 sudo yum-config-manager --enable ol7_UEKR5
-sudo yum update -y</code></pre> 
+sudo yum update -y
+```
 
 #### Reboot the node 
-<pre><code>sudo systemctl reboot</code></pre>
+
+```
+sudo systemctl reboot
+```
+
 
 #### Check resource requirements 
 1. Each node needs a minimum 2GB RAM and 2CPUs
 2. A storage volume of at least 10GB is required for /var/lib/kubelet directory
-<pre><code>sudo dmidecode -s system-uuid</code></pre>
+
+```
+sudo dmidecode -s system-uuid
+```
 
 #### Install docker 
-<pre><code>sudo yum install docker-engine -y
+
+```
+sudo yum install docker-engine -y
 sudo systemctl enable docker
 sudo systemctl start docker
-sudo systemctl status docker</code></pre>
+sudo systemctl status docker
+```
+
 Docker should be running after the above code executes successfully as shown below
 ![](images/dockerRunning.png)
 
 #### Login as root 
-<pre><code>sudo su -</code></pre>
+
+```
+sudo su -
+```
 
 #### Check Oracle container registry account 
 1. Check https://container-registry.oracle.com to see if you can login through SSO userid and password
 2. Check logging in with docker 
-<pre><code>docker login container-registry.oracle.com</code></pre>
+
+```
+docker login container-registry.oracle.com
+```
 
 #### Setup KUBE_REPO_PREFIX
-<pre><code>docker login container-registry-phx.oracle.com
+
+```
+docker login container-registry-phx.oracle.com
 Username: <your email address>
 Password: <Your container-registry password>
 export KUBE_REPO_PREFIX=container-registry-phx.oracle.com/kubernetes
 echo 'export KUBE_REPO_PREFIX=container-registry-phx.oracle.com/kubernetes' >> ~/.bashrc
-cat ~/.bashrc</code></pre>
+cat ~/.bashrc
+```
 
 #### Install ntp server
-<pre><code>sudo yum install ntp -y
+
+```
+sudo yum install ntp -y
 sudo systemctl start ntpd
 sudo systemctl enable ntpd
-sudo systemctl status ntpd</code></pre>
+sudo systemctl status ntpd
+```
+
 ntpd service should be active and running after the code above executes successfully
 
 #### Setup iptables and firewall configuration (perform as root)
-<pre><code>iptables -P FORWARD ACCEPT
+
+```
+iptables -P FORWARD ACCEPT
 firewall-cmd --add-masquerade --permanent
 firewall-cmd --add-port=10250/tcp --permanent
 firewall-cmd --add-port=8472/udp --permanent
 firewall-cmd --add-port=6443/tcp --permanent
 systemctl restart firewalld
-systemctl status firewalld</code></pre>
+systemctl status firewalld
+```
+
 The firewalld service should be restarted and running. The time 2s shows that it has just restarted
 ![](images/firewalld.png)
 
 #### Configure certain network requirements (perform as root)
-<pre><code>lsmod|grep br_netfilter
+
+```
+lsmod|grep br_netfilter
 modprobe br_netfilter
 echo "br_netfilter" >> /etc/modules-load.d/br_netfilter.conf
 echo "net.bridge.bridge-nf-call-ip6tables = 1" >> /etc/sysctl.d/k8s.conf
 echo "net.bridge.bridge-nf-call-iptables = 1" >> /etc/sysctl.d/k8s.conf
 /sbin/sysctl -p /etc/sysctl.d/k8s.conf
-/sbin/iptables -P FORWARD ACCEPT</code></pre>
+/sbin/iptables -P FORWARD ACCEPT
+```
+
 ![](images/netbridge.png)
 
 #### Setup SELINUX (perform as root)
+
+```
 /usr/sbin/setenforce 0
+```
+
 Edit the file /etc/selinux/config (you can use vi or nano editor), change the value as shown below and save the file 
 SELINUX=Permissive
 
 #### set swap off (perform as root)
-<pre><code>swapoff -a</code></pre> 
+
+```
+swapoff -a
+```
 
 **NOTE:** Repeat the above steps for each one of the nodes until they are successfully completed.If you encounter failure, recreate the instance and start from the beginning
 
@@ -131,30 +169,49 @@ SELINUX=Permissive
 **NOTE:** DO THE FOLLOWING FOR THE MASTER NODE ONLY
 
 #### Install and configure kubernetes (perform as root)
-<pre><code>yum install kubeadm kubelet kubectl -y
-kubeadm-setup.sh up</code></pre>
+
+```
+yum install kubeadm kubelet kubectl -y
+kubeadm-setup.sh up
+```
+
 After successful installation - it should display as 
 ![](images/k8s-2.png)
 1. Exit out of root account, copy the code circled in blue and run in opc or any account you wish to run kubectl and connect to kubernetes
 2. Copy the code (spitted out in red) in a notepad and keep it in a safe place. You would need to run this for each node
 
 #### Setup KUBECONFIG environment variable (perform as opc or non-root account)
+
+```
 export KUBECONFIG=$HOME/.kube/config
 echo 'export KUBECONFIG=$HOME/.kube/config' >> $HOME/.bashrc
+```
 
 #### Verify the kubernetes install
-<pre><code>kubectl get pods -n kube-system</code></pre>
+
+```
+kubectl get pods -n kube-system
+```
+
 1. It should display all the pods in the kubs-system namespace
 
 **NOTE:** DO THE FOLLOWING FOR THE WORKER NODES ONLY
 
 #### Install kubernetes tools on nodes (perform as root)
-<pre><code>yum install kubeadm kubelet kubectl -y</code></pre>
+
+```
+yum install kubeadm kubelet kubectl -y
+```
+
 Copy the code from notepad you copied before and run. This joins the node to the cluster (shown below)
 ![](images/k8s-3.png)
 
 **NOTE:** DO THE FOLLOWING AFTER ALL THE NODES ARE CONFIGURED AND JOINED TO CLUSTER SUCCESSFULLY (PERFORM FROM MASTER NODE ONLY)
-<pre><code>kubectl get nodes</code></pre>
+
+```
+kubectl get nodes
+```
+
 ![](images/ready.png)
 
 If the above is displayed, your kubernetes cluster is ready and running
