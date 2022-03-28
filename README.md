@@ -4,8 +4,8 @@ Repository of technology how-to’s and instructional content for Researchers
 
 ## Documentation
 
+* [Oracle Help Center](https://docs.oracle.com/en/programs/research)
 * [Quick Oracle Cloud links for researchers](./Important-Links.md)
-* [Getting Started](./Getting-Started)
 * [Architecture and Automation](./Architecture)
 * [Performance and Benchmarks](./Performance)
 * [Resources](./Resources)
