@@ -1,13 +1,27 @@
 # Myinstaller
 
-## Desctiption
+## Description
 
 Myinstaller is a python package designed to simplify the software installation process for bioinformaticiens. It provides a commandline based GUI to select software and install them automatically. Currently, it supports Ubuntu, Oracle Linux and CentOS operating systems. 
 
 ## How to download installer
 
+__OracleLinux__
+
 ```{bash}
-wget Need to update later
+wget https://github.com/oracle/oracle-for-research/raw/main/OpenSource/InstallSoftware/Myinstaller_OracleLinux/Myinstaller
+```
+
+__Ubuntu__
+
+```{bash}
+wget https://github.com/oracle/oracle-for-research/raw/main/OpenSource/InstallSoftware/Myinstaller_Ubuntu/Myinstaller
+```
+
+__CentOS__
+
+```{bash}
+wget https://github.com/oracle/oracle-for-research/raw/main/OpenSource/InstallSoftware/Myinstaller_centOS/Myinstaller
 ```
 
 ## How to use
@@ -25,7 +39,7 @@ Then follow the instructions on the GUI
 
 __NOTE:__ If you choose to install Rstudio, during the setup process you will be asked to choose a password for the Rstudio server.
 
-### Login credentials:
+### Rstudio server login credentials:
 
 * __User name__ = oci
 * __password__ = Password you choose during the installation process
@@ -39,7 +53,7 @@ __NOTE:__ Open port 8787 on the OCI VCN and the Linux OS
 
 #### If you choose to install Rstudio server on the private subnet
 
-First you will be required to create a ssh tunnel and forward port 8787 to localhost.
+First you will be required to create a ssh tunnel and forward port 8787 to localhost or use the [Connector](https://github.com/oracle/oracle-for-research/tree/main/OpenSource/Connector)
 
     http://localhost:8787
 
@@ -74,7 +88,7 @@ __NOTE:__ Open port 8888 on the OCI VCN and the Linux OS
 
 #### If you choose to install Jupyter notebook on the private subnet
 
-First you will be required to create a ssh tunnel and forward port 8888 to localhost.
+First you will be required to create a ssh tunnel and forward port 8888 to localhost or use the [Connector](https://github.com/oracle/oracle-for-research/tree/main/OpenSource/Connector)
 To start the jupyter notebook type the following command on the terminal after ssh into the OCI-instance. 
 
 
@@ -93,7 +107,7 @@ Now you can paste this on the Laptop/Desktop browser to access the Jupyter Noteb
 
 #### Shutting down Jupyter notebook
 
-To shutdown the jupyter notebook, press __Crtl+c__ 
+To shutdown the jupyter notebook, go to the terminal window and press __Crtl+c__. This will send the keyboard interrupt signal to the jupyter notebook server.
 
 ```{bash}
 ^C[I 06:58:57.198 NotebookApp] interrupted
