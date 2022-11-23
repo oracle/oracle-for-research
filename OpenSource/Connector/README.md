@@ -1,6 +1,6 @@
 # Connector
 
-__Connector__ is a program to simplify the SSH-Tunneling process via a Bastion host. This is designed to run on your local computer. Here we have provided binaries for Ubuntu and MacOS. If you are using Windows, first install the windows subsystem for linux (WSL) and use the binary for Ubuntu. Always if you require, you can compile the program following instructions give below. 
+__Connector__ is a program to simplify the SSH-Tunneling process via a Bastion host. This is designed to run on your local computer. Here we have provided binaries for Ubuntu, MacOS and Windows. If you are using Windows, you could also use the binary for Ubuntu through Windows Subsystem for Linux (WSL). Always if required, you can compile the program following the instructions give below.
 
 * For the Connector to work you must have a Bastion host on the public subnet and your Rstudio server or Jupyter notebook must be installed on the private subnet. 
 * User names for both bastion host and the compute instance running on the private subnet must be the same.
