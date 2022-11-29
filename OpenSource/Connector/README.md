@@ -1,6 +1,6 @@
 # Connector
 
-__Connector__ is a program to simplify the SSH-Tunneling process via a Bastion host. This is designed to run on your local computer. Here we have provided binaries for Ubuntu, MacOS and Windows. If you are using Windows, you could either use the windows binary with Powershell or use the Ubuntu binary through Windows Subsystem for Linux (WSL). Always if required, you can compile the program following the instructions give below.
+__Connector__ is a program to simplify the SSH-Tunneling process via a Bastion host. This is designed to run on your local computer. Here we have provided binaries for Ubuntu, MacOS and Windows. If you are using Windows, you could also run Ubuntu through Windows Subsystem for Linux (WSL). Always if required, you can compile the program following the instructions give below. 
 
 * For the Connector to work you must have a Bastion host on the public subnet and your Rstudio server or Jupyter notebook must be installed on the private subnet. 
 * User names for both bastion host and the compute instance running on the private subnet must be the same.
@@ -41,6 +41,7 @@ Usage: connector [OPTIONS]
     -r = [Optional] Rstudio-server port 8787 forward to localhost
     -s = [Optional] Only shell access
     -f = [Optional] SFTP port (22) forward to localhost
+    -p = [Optional] Forward the port number given after -p to localhost
 ```
 
 
@@ -52,7 +53,7 @@ NOTE: You will need gcc installed on your computer. To compile just run
 make
 ```
 
-This will produce a binary called __connector__, which you can execute following instructions given under "Using the precompiled binary". 
+This will produce a binary called connector, which you can execute following instructions given under "Using the precompiled binary". 
 
 
 ### IMPORTANT NOTEs: 
@@ -60,8 +61,6 @@ This will produce a binary called __connector__, which you can execute following
 At a given time, you can only use this to connect to either jupyter, Rstudio server, get a terminal connection or forward SFT to localhost. 
 
 ### For jupyter:
-
-Use the option -j 
 
 If you coose to connect to the jupyter notebook, connector will create a tunel, forward the port 8888 to your localhost and open a terminal session to the instance running jupyter but will not launch jupyter. You are required to launch it manually by typing the following command on the terminal that was opened by connector. 
 
@@ -93,11 +92,9 @@ Example:
 
 ### For Rstudio server:
 
-Use the option -r 
-
     http://localhost:8787/
 
-If the installation was done using the [Myinstallaer](https://github.com/oracle/oracle-for-research/tree/main/OpenSource/InstallSoftware), the default user name for Rstudio server is __oci__ and the password is the one you setup during the installation process.
+If the installation was done using the __Myinstallaer__, the default user name for Rstudio server is __oci__ and the password is the one you setup during the installation process.
 
 ### For terminal connection
 
@@ -125,6 +122,26 @@ If you encounter the following error on Linux or Mac operating systems,
 ```{bash}
 bind [127.0.0.1]:22: Permission denied
 channel_setup_fwd_listener_tcpip: cannot listen to port: 22
+Could not request local forwarding.
+```
+
+just run the connector as sudo. 
+
+    E.g. sudo ./connector <other input arguments>
+
+
+### Forwarding a given port number to localhost
+
+Using the commandline argument -p and providing a port number will forward the given port number to localhost. 
+
+    E.g. ./connector <other required arguments> -p 8080 will forward port 8080 to localhost.
+
+
+If you encounter the following error on Linux or Mac operating systems, 
+
+```{bash}
+bind [127.0.0.1]:80: Permission denied
+channel_setup_fwd_listener_tcpip: cannot listen to port: <Port number you asked for>
 Could not request local forwarding.
 ```
 

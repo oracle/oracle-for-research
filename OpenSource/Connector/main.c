@@ -15,6 +15,7 @@ void usage(){
    printf("    -r = [Optional] Rstudio-server port 8787 forward to localhost\n");
    printf("    -s = [Optional] Only shell access\n");
    printf("    -f = [Optional] SFTP port (22) forward to localhost\n");
+   printf("    -p = [Optional] Forward the port number given after -p to localhost\n");
    exit(EXIT_FAILURE);
 }
 
@@ -27,6 +28,7 @@ void command_error(int int_error){
       printf("           -r = [Optional] Rstudio-server port (8787) forward to localhost\n");
       printf("           -s = [Optional] Connect to the instance without any port forwarding\n");
       printf("           -f = [Optional] SFTP port (22) forward to localhost\n");
+      printf("           -p = [Optional] Forward the port number given after -p to localhost\n");
       exit(EXIT_FAILURE);
    }else if(int_error == 0){
       printf("ERROR: You have NOT selected a connection type\n");
@@ -35,6 +37,7 @@ void command_error(int int_error){
       printf("           -r = [Optional] Rstudio-server port (8787) forward to localhost\n");
       printf("           -s = [Optional] Connect to the instance without any port forwarding\n");
       printf("           -f = [Optional] SFTP port (22) forward to localhost\n");
+      printf("           -p = [Optional] Forward the port number given after -p to localhost\n");
       exit(EXIT_FAILURE);
    }else{
       printf("Unknown Error\n");
@@ -53,11 +56,13 @@ int main(int argc, char *argv[]){
    int rstudio = 0;
    int shell = 0;
    int ftp_connection = 0;
+   char *port = NULL;
 
    char bastion_host[16] = "";
    char target_host[16] = "";
    char key_path[256] = "";
    char user_name[16] = "";
+   char custom_port[32] = "";
 
    char sudo[1024] = "ssh -i ";
    char space[] = " ";
@@ -68,7 +73,7 @@ int main(int argc, char *argv[]){
    char ftp_map[] = " -L 22:localhost:22 ";
 
 
-   while((opt=getopt(argc, argv, "b:d:k:u:rjsf")) != -1){
+   while((opt=getopt(argc, argv, "b:d:k:u:rjsfp:")) != -1){
       switch(opt){
          case 'b':
             jump = optarg;
@@ -98,6 +103,9 @@ int main(int argc, char *argv[]){
          case 'f':
             ftp_connection = 1;
             break;
+         case 'p':
+            port = optarg;
+            break;
          default:
             abort();
       }
@@ -106,11 +114,11 @@ int main(int argc, char *argv[]){
 
    if(argc > 1 && jump != NULL && destination != NULL && key != NULL && remote_hostname != NULL){
       
-      if(jupyter == 1 && rstudio == 1 && shell == 1 && ftp_connection == 1){
+      if(jupyter == 1 && rstudio == 1 && shell == 1 && ftp_connection == 1 && port != NULL){
          command_error(1);
-      }else if(jupyter == 0 && rstudio == 0 && shell == 0 && ftp_connection == 0){
+      }else if(jupyter == 0 && rstudio == 0 && shell == 0 && ftp_connection == 0 && port == NULL){
          command_error(0);
-      }else if(jupyter == 1 && rstudio == 0 && shell == 0 && ftp_connection == 0){
+      }else if(jupyter == 1 && rstudio == 0 && shell == 0 && ftp_connection == 0 && port == NULL){
          printf("############################################################################\n");
          printf("#      Activating: Jupyter-Notebook port 8888 forwarding to local host     #\n");
          printf("#      After the connection activate jupyter-notebook                      #\n");
@@ -132,7 +140,7 @@ int main(int argc, char *argv[]){
          // printf("%s\n", sudo);
          system(sudo);
 
-      }else if(jupyter == 0 && rstudio == 1 && shell == 0 && ftp_connection == 0){
+      }else if(jupyter == 0 && rstudio == 1 && shell == 0 && ftp_connection == 0 && port == NULL){
          printf("############################################################################\n");
          printf("#      Activating: Rstudio server port 8787 forwarding to local host       #\n");
          printf("#      Use: http://localhost:8787 to access Rstudio                        #\n");
@@ -153,7 +161,7 @@ int main(int argc, char *argv[]){
          // printf("%s\n", sudo);
          system(sudo);
 
-      }else if(jupyter == 0 && rstudio == 0 && shell == 1 && ftp_connection == 0){
+      }else if(jupyter == 0 && rstudio == 0 && shell == 1 && ftp_connection == 0 && port == NULL){
          printf("############################################################################\n");
          printf("#      Activating: Shell connection WITH OUT port forwarding               #\n");
          printf("############################################################################\n\n\n");
@@ -173,7 +181,7 @@ int main(int argc, char *argv[]){
          // printf("%s\n", sudo);
          system(sudo);
 
-      }else if(jupyter == 0 && rstudio == 0 && shell == 0 && ftp_connection == 1){
+      }else if(jupyter == 0 && rstudio == 0 && shell == 0 && ftp_connection == 1 && port == NULL){
          printf("############################################################################################\n");
          printf("#      Activating: SFTP Forwarding port 22 to localhost                                    #\n");
          printf("#      Use: localhost as the destination and port 22 as the port on your SFTP client       #\n");
@@ -187,6 +195,33 @@ int main(int argc, char *argv[]){
          strcat(sudo, proxy);
          strcat(sudo, key_path);
          strcat(sudo , ftp_map);
+         strcat(sudo, user_name);
+         strcat(sudo, at);
+         strcat(sudo, bastion_host);
+         strcat(sudo, "\"");
+         // printf("%s\n", sudo);
+         system(sudo);
+      
+      }else if(jupyter == 0 && rstudio == 0 && shell == 0 && ftp_connection == 0 && port != NULL){
+         printf("############################################################################################\n");
+         printf("#      Port %s forwarding to localhost                                                     #\n", port);
+         printf("############################################################################################\n\n\n");
+         sleep(3);
+
+         strcat(custom_port, " -L ");
+         strcat(custom_port, port);
+         strcat(custom_port, ":localhost:");
+         strcat(custom_port, port);
+         strcat(custom_port, " ");
+
+         strcat(sudo, key_path);
+         strcat(sudo, custom_port);
+         strcat(sudo, user_name);
+         strcat(sudo, at);
+         strcat(sudo, target_host);
+         strcat(sudo, proxy);
+         strcat(sudo, key_path);
+         strcat(sudo , custom_port);
          strcat(sudo, user_name);
          strcat(sudo, at);
          strcat(sudo, bastion_host);
