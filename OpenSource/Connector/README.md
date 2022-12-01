@@ -14,7 +14,9 @@ __Connector__ is a program to simplify the SSH-Tunneling process via a Bastion h
 #### On Ubuntu and MacOS
 
 ```{bash}
-After downloading the binary just run
+After downloading change directory to the place where you saved it.
+Type: chmod 777 connector and then run as follows
+
 
 ./connector
 
