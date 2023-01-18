@@ -2,6 +2,11 @@
 
 Repository of technology how-to’s and instructional content for Researchers
 
+## Useful Scripts
+
+* [Connector](./OpenSource/Connector)
+* [Myinstaller](./OpenSource/InstallSoftware)
+
 ## Documentation
 
 * [Oracle Help Center](https://docs.oracle.com/en/programs/research)
