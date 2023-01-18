@@ -2,9 +2,9 @@
 
 ## Description
 
-Myinstaller is a python package designed to simplify the software installation process for bioinformaticiens. It provides a commandline based GUI to select software and install them automatically. Currently, it supports Ubuntu, Oracle Linux and CentOS operating systems. 
+Myinstaller is a python package designed to simplify the software installation process for bioinformaticiens. It provides a command line based GUI to select software and install them automatically. Currently, it supports Ubuntu, Oracle Linux and CentOS operating systems. 
 
-## How to download installer
+## How to download the installer
 
 __OracleLinux__
 
@@ -33,11 +33,11 @@ chmod 777 <path>/Myinstaller
 ./Myinstaller
 ```
 
-Then follow the instructions on the GUI
+Then follow the instructions on the GUI.
 
 ## Installing Rstudio 
 
-__NOTE:__ If you choose to install Rstudio, during the setup process you will be asked to choose a password for the Rstudio server.
+__NOTE:__ If you choose to install Rstudio, you will be asked to choose a password for the Rstudio server during the setup process.
 
 ### Rstudio server login credentials:
 
@@ -45,34 +45,34 @@ __NOTE:__ If you choose to install Rstudio, during the setup process you will be
 * __password__ = Password you choose during the installation process
 * __port__ = 8787
 
-#### If you choose to install Rstudio server on the public subnet (Not recommended)
+#### If you choose to install the Rstudio server on the public subnet (Not recommended)
 
 __NOTE:__ Open port 8787 on the OCI VCN and the Linux OS
 
-    http://Ip-addresss:8787
+	http://Ip-addresss:8787
 
-#### If you choose to install Rstudio server on the private subnet
+#### If you choose to install the Rstudio server on the private subnet
 
-First you will be required to create a ssh tunnel and forward port 8787 to localhost or use the [Connector](https://github.com/oracle/oracle-for-research/tree/main/OpenSource/Connector)
+First, you will be required to create an ssh tunnel and forward port 8787 to localhost or use the [Connector](https://github.com/oracle/oracle-for-research/tree/main/OpenSource/Connector)
 
-    http://localhost:8787
+	http://localhost:8787
 
 
-## Installing Jupyter Note book
+## Installing Jupyter Notebook
 
-If you choose to install jupyter notebook on an OCI instance, once the installation is complete, you will need to run the following command to launch the notebook. 
+If you choose to install jupyter notebook on an OCI instance, you will need to run the following command to launch the notebook once the installation is complete. 
 
 ```{bash}
 jupyter-notebook
 ```
 
-This will produce an output similar to below
+This will produce an output similar to below.
 
 ```{bash}
 [I 23:03:02.132 NotebookApp] Serving notebooks from local directory: /home/opc
 [I 23:03:02.132 NotebookApp] Jupyter Notebook 6.4.10 is running at:
 [I 23:03:02.132 NotebookApp] http://localhost:8888/?token=dfgdfg543545d4fgdf5g4d3543gd54gd35fgd5f4d3fdgffdf
-[I 23:03:02.132 NotebookApp]  or http://127.0.0.1:8888/?token=dfgdfg543545d4fgdf5g4d3543gd54gd35fgd5f4d3fdgffdf
+[I 23:03:02.132 NotebookApp] or http://127.0.0.1:8888/?token=dfgdfg543545d4fgdf5g4d3543gd54gd35fgd5f4d3fdgffdf
 [I 23:03:02.132 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
 [W 23:03:02.137 NotebookApp] No web browser found: could not locate runnable browser.
 [C 23:03:02.138 NotebookApp] 
@@ -84,12 +84,12 @@ This will produce an output similar to below
 __NOTE:__ Open port 8888 on the OCI VCN and the Linux OS
 
 
-    http://Ip-addresss:8888
+	http://Ip-addresss:8888
 
 #### If you choose to install Jupyter notebook on the private subnet
 
-First you will be required to create a ssh tunnel and forward port 8888 to localhost or use the [Connector](https://github.com/oracle/oracle-for-research/tree/main/OpenSource/Connector)
-To start the jupyter notebook type the following command on the terminal after ssh into the OCI-instance. 
+First, you will be required to create an ssh tunnel and forward port 8888 to localhost or use the [Connector](https://github.com/oracle/oracle-for-research/tree/main/OpenSource/Connector)
+To start the jupyter notebook, type the following command on the terminal after ssh into the OCI instance. 
 
 
 ```{bash}
@@ -97,11 +97,11 @@ jupyter-notebook
 ```
 
 
-Refer to the terminal output of the "jupyter-notebook" command and copy the localhost URL with the token. 
+Refer to the "jupyter-notebook" terminal output and copy the localhost URL with the token. 
 
 Example:
 
-    http://localhost:8888/?token=dfgdfg543545d4fgdf5g4d3543gd54gd35fgd5f4d3fdgffdf
+	http://localhost:8888/?token=dfgdfg543545d4fgdf5g4d3543gd54gd35fgd5f4d3fdgffdf
 
 Now you can paste this on the Laptop/Desktop browser to access the Jupyter Notebook.
 
@@ -115,7 +115,7 @@ Serving notebooks from local directory: /home/opc
 0 active kernels
 Jupyter Notebook 6.4.10 is running at:
 http://localhost:8888/?token=6925ea8a9db2dcbeb5530181e4b44a56722faf84c0a64ee2
- or http://127.0.0.1:8888/?token=6925ea8a9db2dcbeb5530181e4b44a56722faf84c0a64ee2
+or http://127.0.0.1:8888/?token=6925ea8a9db2dcbeb5530181e4b44a56722faf84c0a64ee2
 Shutdown this notebook server (y/[n])? 
 ```
 
@@ -127,5 +127,4 @@ Shutdown this notebook server (y/[n])? y
 [I 06:58:59.614 NotebookApp] Shutting down 0 kernels
 [I 06:58:59.615 NotebookApp] Shutting down 0 terminals
 ```
-
 
