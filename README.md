@@ -1,4 +1,4 @@
-# Oracle for Research
+# Research
 
 Repository of technology how-to’s and instructional content for Researchers
 
@@ -14,11 +14,6 @@ Repository of technology how-to’s and instructional content for Researchers
 * [Architecture and Automation](./Architecture)
 * [Performance and Benchmarks](./Performance)
 * [Resources](./Resources)
-
-## Help
-
-For information on the Oracle for Research program, or questions on the documentation in this repository:
-contact oracleforresearch_ww@oracle.com
 
 ## Contributing
 
