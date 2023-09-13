@@ -4,7 +4,7 @@
 
 By Rajib Ghosh, Senior Solutions Architect, Oracle for Research
 
-This document outlines the basic and the necessary steps to set up the OCI command line interface for Oracle for Research. Since most researchers need basic automation steps I,e starting and stopping instances, standing up and terminating clusters, the document focusses on to get them started and show the learning path required for advanced options. This requires a researcher be familiar with spinning up a compute instance and logging in to the VM as opc account with SSH credentials. Key steps are illustrated below
+This document outlines the basic and the necessary steps to set up the OCI command line interface. Since most researchers need basic automation steps I,e starting and stopping instances, standing up and terminating clusters, the document focusses on to get them started and show the learning path required for advanced options. This requires a researcher be familiar with spinning up a compute instance and logging in to the VM as opc account with SSH credentials. Key steps are illustrated below
 
 ### Pre-requisites
 * Oracle Linux 7.8 / Oracle Linux 8 platform image
@@ -102,7 +102,7 @@ https://docs.cloud.oracle.com/en-us/iaas/tools/oci-cli/2.14.1/oci_cli_docs/
 
 ### Using the Research Gateway custom image
 
-You may be able to use an Oracle for Research custom image to standup a gateway VM. The image is pre-installed with OCI CLI on OracleLinux7.8 and you would only need it to configure with your tenancy ocid, compartment ocid and user ocid in ~/.oci/config file 
+You may be able to use a Research custom image to standup a gateway VM. The image is pre-installed with OCI CLI on OracleLinux7.8 and you would only need it to configure with your tenancy ocid, compartment ocid and user ocid in ~/.oci/config file 
 
 1.	Import the image to your tenancy as a custom image using the following URL – 
 2.	Create the Always Free Tier compute instance with this custom image in the public subnet
